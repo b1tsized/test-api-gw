@@ -12,7 +12,8 @@
 # Directories
 .terraform/
 .vagrant/
-
+template/lambda.zip
+python/lambda_function.py
 # SSH Keys
 *.pem
 
