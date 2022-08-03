@@ -108,7 +108,7 @@ resource "aws_lambda_permission" "cloudwatch_lambda_trigger" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.lambda.function_name
-  principal     = "logs.us-west-2.amazonaws.com"
+  principal     = "logs.${var.region}.amazonaws.com"
   source_arn    = "${aws_cloudwatch_log_group.log_group.arn}:*"
 }
 
@@ -125,7 +125,7 @@ resource "aws_cloudwatch_log_group" "lambda_logs" {
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "log_sub_filter" {
-  name            = "test_lambdafunction_logfilter"
+  name            = "${var.lambda_function_name}_logfilter"
   log_group_name  = aws_cloudwatch_log_group.log_group.name
   filter_pattern  = ""
   destination_arn = aws_lambda_function.lambda.arn
